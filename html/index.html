@@ -78,6 +78,7 @@ Licensed under Apache 2.0 License
 
     <div class="toolbar">
         Version 1.11<br>
+        <button id="btnMyLocation" onclick="getLocation()">My Location</button><br>
         <button id="btnImport">Import Data...</button><br>
         <input type="file" id="fileInput" text="Import file" style="display: none" multiple /><br>
         <button id="btnClear">Clear all locations</button><br>
@@ -127,6 +128,58 @@ Licensed under Apache 2.0 License
 
 
     <script>
+    
+    	//const x = document.getElementById("map");
+  //const { Marker } = await google.maps.importLibrary("marker");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else { 
+    //x.innerHTML = "Geolocation is not supported by this browser.";
+    console.log( "Geolocation is not supported by this browser." )
+  }
+}
+
+function success(position) {
+  console.log( "Latitude: " + position.coords.latitude + 
+  ", Longitude: " + position.coords.longitude)
+  //x.innerHTML = "Latitude: " + position.coords.latitude + 
+  //"<br>Longitude: " + position.coords.longitude;
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  //const latlon = new google.maps.LatLng(lat, lon)
+  //var myOptions = {
+  //  center:latlon,zoom:14,
+  //  mapTypeId:google.maps.MapTypeId.ROADMAP,
+  //  mapTypeControl:false,
+   // navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+  //}
+    
+ // const map = new google.maps.Map(document.getElementById("map"), myOptions);
+ // const marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+}
+
+function error(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      //x.innerHTML = "User denied the request for Geolocation."
+      console.log( "User denied the request for Geolocation." )
+      break;
+    case error.POSITION_UNAVAILABLE:
+      //x.innerHTML = "Location information is unavailable."
+      console.log( "Location information is unavailable." )
+      break;
+    case error.TIMEOUT:
+      //x.innerHTML = "The request to get user location timed out."
+      console.log( "The request to get user location timed out." )
+      break;
+    case error.UNKNOWN_ERROR:
+      //x.innerHTML = "An unknown error occurred."
+      console.log( "An unknown error occurred." )
+      break;
+  }
+}
+    	
         let markers;
         let polylines = []; // Array to hold polylines
 
